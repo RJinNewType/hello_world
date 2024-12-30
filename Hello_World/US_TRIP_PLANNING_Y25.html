@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R&S 美国旅行计划日历 2025</title>
+    <style>
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 1cm;
+            }
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+            margin: 20px;
+            background: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,240,240,1) 100%);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(220,20,60,0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            background: linear-gradient(45deg, #8B0000, #DC143C, #FF4444);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .header h2 {
+            color: #8B0000;
+            margin-top: 10px;
+            font-size: 1.5em;
+            font-weight: normal;
+            opacity: 0.9;
+        }
+
+        /* Add subtle animation on hover */
+        .header:hover h1 {
+            background: linear-gradient(45deg, #DC143C, #FF4444, #8B0000);
+            -webkit-background-clip: text;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .calendar th {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .calendar td {
+            height: 80px;
+            vertical-align: top;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+
+        .date {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .weekend {
+            background-color: #f9f9f9;
+        }
+
+        .notes {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .prev-month, .next-month {
+            color: #ccc;
+        }
+
+        /* Add style for Chinese New Year period */
+        .cny-period {
+            background-color: #ffebeb;
+        }
+
+        .cny-period.weekend {
+            background-color: #ffe0e0;
+        }
+
+        /* Add legend style */
+        .legend {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+
+        .flight-info {
+            font-size: 0.75em;
+            color: #0066cc;
+            background-color: #f0f8ff;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-top: 2px;
+        }
+
+        .departure {
+            border-left: 3px solid #4CAF50;
+        }
+
+        .arrival {
+            border-left: 3px solid #f44336;
+        }
+
+        .trip-icon {
+            font-size: 1.5em;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        .start-icon {
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+
+        .end-icon {
+            color: #DC143C;
+            text-shadow: 0 0 5px rgba(220, 20, 60, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .trip-marker {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .trip-marker.start {
+            color: #FFD700;
+        }
+
+        .trip-marker.end {
+            color: #DC143C;
+        }
+
+        .appointment-info {
+            font-size: 0.75em;
+            color: #9C27B0;  /* Purple for appointments */
+            background-color: #F3E5F5;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-top: 2px;
+            border-left: 3px solid #9C27B0;
+        }
+
+        .appointment-icon {
+            margin-right: 2px;
+        }
+
+        .flight-info.connection {
+            border-left: 3px solid #FF9800;  /* Orange for connection flights */
+        }
+
+        .hotel-info {
+            font-size: 0.75em;
+            color: #2196F3;  /* Blue for hotel stays */
+            background-color: #E3F2FD;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-top: 2px;
+            border-left: 3px solid #2196F3;
+        }
+
+        .car-rental-info {
+            font-size: 0.75em;
+            color: #43A047;  /* Green for car rental */
+            background-color: #E8F5E9;
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin-top: 2px;
+            border-left: 3px solid #43A047;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>美国旅行计划日历</h1>
+        <h2>2025年 1月17日 - 2月5日 (20天)</h2>
+    </div>
+
+    <table class="calendar">
+        <tr>
+            <th>周日</th>
+            <th>周一</th>
+            <th>周二</th>
+            <th>周三</th>
+            <th>周四</th>
+            <th>周五</th>
+            <th>周六</th>
+        </tr>
+        <!-- Week of Jan 12-18 -->
+        <tr>
+            <td class="weekend"><div class="date">12</div><div class="notes prev-month">上周</div></td>
+            <td><div class="date">13</div><div class="notes">第一周开始</div></td>
+            <td><div class="date">14</div></td>
+            <td><div class="date">15</div></td>
+            <td><div class="date">16</div></td>
+            <td>
+                <div class="date">17</div>
+                <div class="trip-marker start">
+                    <span class="trip-icon start-icon">⭐</span>
+                    <span>旅程开始</span>
+                </div>
+                <div class="flight-info connection">
+                    ✈️ 上海 → 首尔<br>
+                    17:50 - 20:45<br>
+                    2小时55分<br>
+                    FM3069<br>
+                    浦东T1 → 仁川T1
+                </div>
+                <div class="hotel-info">
+                    🏨 首尔过夜<br>
+                    仁川机场附近酒店<br>
+                    20:45 抵达 - 次日出发
+                </div>
+            </td>
+            <td class="weekend">
+                <div class="date">18</div>
+                <div class="flight-info departure">
+                    ✈️ 首尔 → 纽约<br>
+                    10:00 - 10:00<br>
+                    14小时00分<br>
+                    仁川T2 → JFK T1
+                </div>
+                <div class="car-rental-info">
+                    🚗 取车地点：JFK机场<br>
+                    时间：11:30 AM<br>
+                    租车公司：Hertz<br>
+                    Terminal 1 Counter
+                </div>
+                <div class="appointment-info">
+                    🔍 指纹采集<br>
+                    14:30 (2:30 PM)<br>
+                    IdentoGO<br>
+                    255 W 36th St, NYC
+                </div>
+            </td>
+        </tr>
+        <!-- Week of Jan 19-25 -->
+        <tr>
+            <td class="weekend"><div class="date">19</div></td>
+            <td><div class="date">20</div><div class="notes">马丁·路德·金纪念日</div></td>
+            <td><div class="date">21</div></td>
+            <td><div class="date">22</div></td>
+            <td><div class="date">23</div></td>
+            <td><div class="date">24</div></td>
+            <td class="weekend"><div class="date">25</div><div class="notes">春节</div></td>
+        </tr>
+        <!-- Week of Jan 26-Feb 1 -->
+        <tr>
+            <td class="weekend"><div class="date">26</div></td>
+            <td><div class="date">27</div></td>
+            <td class="cny-period"><div class="date">28</div><div class="notes">春节假期</div></td>
+            <td class="cny-period"><div class="date">29</div></td>
+            <td class="cny-period"><div class="date">30</div></td>
+            <td class="cny-period"><div class="date">31</div></td>
+            <td class="weekend cny-period"><div class="date">1</div></td>
+        </tr>
+        <!-- Week of Feb 2-8 -->
+        <tr>
+            <td class="weekend cny-period"><div class="date">2</div></td>
+            <td class="cny-period">
+                <div class="date">3</div>
+                <div class="flight-info arrival">
+                    ✈️ 纽约 → 首尔<br>
+                    00:50 - 06:30(+1)<br>
+                    15小时40分<br>
+                    JFK T1 → 仁川T2
+                </div>
+            </td>
+            <td class="cny-period">
+                <div class="date">4</div>
+                <div class="hotel-info">
+                    🏨 首尔住宿<br>
+                    明洞地区酒店(待定)<br>
+                    06:30 抵达 - 次日早餐
+                </div>
+                <div class="tour-info" style="
+                    font-size: 0.75em;
+                    color: #E91E63;
+                    background-color: #FCE4EC;
+                    padding: 2px 4px;
+                    border-radius: 3px;
+                    margin-top: 2px;
+                    border-left: 3px solid #E91E63;
+                ">
+                    🎌 首尔一日游<br>
+                    明洞购物(待定)<br>
+                    南山塔(待定)<br>
+                    弘大夜市(待定)
+                </div>
+            </td>
+            <td>
+                <div class="date">5</div>
+                <div class="tour-info" style="
+                    font-size: 0.75em;
+                    color: #E91E63;
+                    background-color: #FCE4EC;
+                    padding: 2px 4px;
+                    border-radius: 3px;
+                    margin-top: 2px;
+                    border-left: 3px solid #E91E63;
+                ">
+                    🎌 首尔半日游<br>
+                    景福宫<br>
+                    北村韩屋村
+                </div>
+                <div class="flight-info connection">
+                    ✈️ 首尔 → 上海<br>
+                    16:35 - 17:55<br>
+                    2小时20分<br>
+                    MU5012<br>
+                    仁川T1 → 浦东T1
+                </div>
+                <div class="trip-marker end">
+                    <span class="trip-icon end-icon">🏁</span>
+                    <span>旅程结束</span>
+                </div>
+            </td>
+            <td><div class="date">6</div></td>
+            <td><div class="date">7</div></td>
+            <td class="weekend"><div class="date">8</div></td>
+        </tr>
+    </table>
+
+    <!-- Add legend -->
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #ffebeb;"></div>
+            春节假期
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #f9f9f9;"></div>
+            周末
+        </div>
+    </div>
+
+    <div class="notes" style="margin-top: 20px;">
+        <p><strong>重要日期：</strong></p>
+        <ul>
+            <li>1月17日：
+                <ul>
+                    <li>上海出发 (17:50)</li>
+                    <li>抵达首尔 (20:45)</li>
+                    <li>仁川机场附近过夜</li>
+                </ul>
+            </li>
+            <li>1月18日：
+                <ul>
+                    <li>首尔出发 (10:00)</li>
+                    <li>抵达纽约 (10:00)</li>
+                    <li>取车 (11:30 AM)
+                        <br>地点：JFK机场 Terminal 1
+                        <br>租车公司：Hertz
+                    </li>
+                    <li>指纹采集预约 (2:30 PM)
+                        <br>地点：IdentoGO
+                        <br>地址：255 W 36th St, New York, NY 10018
+                    </li>
+                </ul>
+            </li>
+            <li>1月20日：马丁·路德·金纪念日（美国节假日）</li>
+            <li>1月25日：2025年春节（蛇年）</li>
+            <li>1月28日 - 2月4日：春节假期</li>
+        </ul>
+        
+        <p><strong>航班信息：</strong></p>
+        <ul>
+            <li><strong>第一程 (上海 → 首尔)</strong><br>
+                日期：2025年1月17日（周五）<br>
+                航班：FM3069<br>
+                出发：17:50 浦东机场 1号航站楼<br>
+                到达：20:45 仁川机场 1号航站楼<br>
+                飞行时间：2小时55分
+            </li>
+            <li><strong>第二程 (首尔 → 纽约)</strong><br>
+                日期：2025年1月18日（周六）<br>
+                出发：10:00 仁川机场 2号航站楼<br>
+                到达：10:00 肯尼迪机场 1号航站楼<br>
+                飞行时间：14小时00分
+            </li>
+            <li><strong>第三程 (纽约 → 首尔)</strong><br>
+                日期：2025年2月3日（周一）<br>
+                出发：00:50 肯尼迪机场 1号航站楼<br>
+                到达：06:30 (+1天) 仁川机场 2号航站楼<br>
+                飞行时间：15小时40分
+            </li>
+            <li><strong>第四程 (首尔 → 上海)</strong><br>
+                日期：2025年2月5日（周三）<br>
+                航班：MU5012<br>
+                出发：16:35 仁川机场 1号航站楼<br>
+                到达：17:55 浦东机场 1号航站楼<br>
+                飞行时间：2小时20分
+            </li>
+        </ul>
+
+        <p><strong>住宿信息：</strong></p>
+        <ul>
+            <li><strong>首尔过夜 (1月17日-18日)</strong><br>
+                抵达时间：1月17日 20:45<br>
+                离店时间：1月18日早晨<br>
+                位置：仁川机场附近<br>
+                注意：需要选择机场附近酒店，方便次日早晨转机
+            </li>
+        </ul>
+
+        <p><strong>租车信息：</strong></p>
+        <ul>
+            <li><strong>取车</strong><br>
+                日期：2025年1月18日<br>
+                时间：11:30 AM<br>
+                地点：JFK机场 Terminal 1<br>
+                租车公司：Hertz<br>
+                注意事项：
+                <ul>
+                    <li>需要准备驾照翻译件</li>
+                    <li>信用卡押金</li>
+                    <li>建议提前在线预订</li>
+                    <li>确认保险选项</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p><strong>首尔中转行程：</strong></p>
+        <ul>
+            <li><strong>2月4日（周二）</strong>
+                <ul>
+                    <li>06:30 抵达仁川机场</li>
+                    <li>08:00 酒店办理入住（明洞地区）</li>
+                    <li>上午：休息调整</li>
+                    <li>13:00 - 22:00 首尔市区游
+                        <ul>
+                            <li>明洞商圈：购物、美食</li>
+                            <li>南山首尔塔：观景、晚餐</li>
+                            <li>弘大夜市：体验夜生活</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><strong>2月5日（周三）</strong>
+                <ul>
+                    <li>09:00 - 13:00 首尔古韵游
+                        <ul>
+                            <li>景福宫：韩国最大的宫殿</li>
+                            <li>北村韩屋村：传统韩屋区</li>
+                        </ul>
+                    </li>
+                    <li>13:00 返回酒店取行李</li>
+                    <li>14:00 前往仁川机场</li>
+                    <li>16:35 搭乘返程航班</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p><strong>住宿信息：</strong></p>
+        <ul>
+            <li><strong>首尔中转住宿 (2月4日-5日)</strong><br>
+                入住时间：2月4日早晨<br>
+                退房时间：2月5日下午<br>
+                位置：明洞地区<br>
+                建议：选择地铁站附近酒店，方便游览
+            </li>
+        </ul>
+
+        <p><strong>旅游建议：</strong></p>
+        <ul>
+            <li>准备地铁卡或公交卡</li>
+            <li>景点集中在首尔市中心</li>
+            <li>建议提前查看天气预报</li>
+            <li>准备现金和信用卡</li>
+            <li>记录紧急联系电话</li>
+        </ul>
+    </div>
+</body>
+</html>
